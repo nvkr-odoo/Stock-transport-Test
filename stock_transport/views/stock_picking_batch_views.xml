@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_picking_batch_form_view" model="ir.ui.view">
+            <field name="name">stock.picking.batch.form.inherit</field>
+            <field name="model">stock.picking.batch</field>
+            <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+            <field name="arch" type="xml">
+                <field name = 'scheduled_date' position='after'>
+                    <field name="vehicle_id"/>
+                    <field name="vehicle_category_id"/>
+                    <field name="weight"/>
+                    <field name="volume"/>
+                    <field name="weight_bar" widget="progressbar" invisible="weight == 0"/>
+                    <field name="volume_bar" widget="progressbar" invisible="volume == 0"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+            <field name="view_mode">tree,form,kanban,graph,gantt</field>
+        </record>
+    
+    
+        <record id="stock_picking_batch_graph" model="ir.ui.view">
+            <field name="name">stock.picking.batch.Graph</field>
+            <field name="model">stock.picking.batch</field>
+            <field name="arch" type="xml">
+                <graph string="Batch transfers" type="bar" sample="1">
+                    <field name="vehicle_category_id" string="Vehicle Category"/>
+                    <field name="weight" string="Weights" type="measure"/>
+                    <field name="volume" string="Volumes" type="measure"/>
+                    <field name="transfer" type="measure"/>
+                    <field name="lines" type="measure"/> 
+                    <field name="scheduled_date" interval="week"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="stock_picking_batch_gantt" model="ir.ui.view">
+            <field name="name">stock.picking.batch.Gantt</field>
+            <field name="model">stock.picking.batch</field>
+            <field name="arch" type="xml">
+                <gantt
+                    edit="0"
+                    create="0"
+                    color="id"
+                    date_start="scheduled_date"
+                    date_stop="scheduled_date"
+                    default_group_by="vehicle_category_id"
+                    sample="1"
+                    default_scale="week">
+                    
+                    <!-- <field name="vehicle_category_id"/> -->
+                    <!-- <field name="state"/>
+                    <field name="workcenter_id"/>
+                    <field name="json_popover"/> -->
+                    
+                </gantt>
+            </field>
+        </record>
+        
+
+
+        <!-- <gantt class="o_mrp_workorder_gantt" date_stop="date_finished" date_start="date_start" string="Operations" default_group_by="production_id" create="0" delete="0"
+                progress="progress" plan="0"
+                decoration-danger="json_popover and 'text-danger' in json_popover"
+                decoration-success="state == 'done'"
+                decoration-warning="state == 'cancel' or (json_popover and 'text-warning' in json_popover)"
+                color="workcenter_id"
+                display_unavailability="0"
+                progress_bar="workcenter_id"
+                total_row="True"
+                js_class="mrp_workorder_gantt"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                sample="1"
+                form_view_id="%(mrp_production_workorder_form_view_inherit)d">
+
+                <field name="date_start"/>
+                <field name="state"/>
+                <field name="workcenter_id"/>
+                <field name="json_popover"/>
+
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Start Date: </strong> <t t-esc="date_start.toFormat('F')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-esc="date_finished.toFormat('F')"/></li>
+                                    <li><strong>Workcenter: </strong> <t t-esc="workcenter_id[1]"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt> -->
+    </data>
+</odoo>
