@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//block[@name='shipping_setting_container']" position='inside'>
                     <setting id='stock_transport_dispatch_sysytem'>
-                        <field name="module_stock_transport" company_dependent="1" help="How total tax amount is computed in orders and invoices" title="A rounding per line is advised if your prices are tax-included. That way, the sum of line subtotals equals the total with taxes."/>
+                        <field name="module_stock_transport" company_dependent="1" help="Automatically Installs the Stock Transoprt System" title="Stock Transport System    "/>
                     </setting>
                 </xpath>
             </field>

@@ -12,13 +12,10 @@ class StockPickingBatch(models.Model):
     def _compute_weight(self):
         for batch in self:
             batch.weight = sum(move.weight for move in batch.move_ids)
-            
-
-    @api.depends('move_ids.weight', 'move_ids.volume')
-    def _compute_volume(self):
-        for batch in self:
             batch.volume = sum(move.volume for move in batch.move_ids)
             
+
+    
 
     
     
